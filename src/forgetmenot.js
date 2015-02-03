@@ -72,7 +72,6 @@ fmn = {
             }
         };
         fmn.log(JSON.stringify(options.data));
-        options.success('success');
         //fmn.helpers.call(endpoint, options);
     },
 
