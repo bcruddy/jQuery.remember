@@ -23,7 +23,6 @@ fmn = {
             e.preventDefault();
             fmn.submitForm($(this));
         });
-
     },
 
     setLocalStorage: function (key, value) {
@@ -49,12 +48,12 @@ fmn = {
     },
 
     clearForm: function () {
+        fmn.log('fmn.clearForm()');
         $('.demo-form input, .demo-form textarea').val('');
     },
 
     submitForm: function ($form) {
         fmn.log('fmn.submitForm()');
-
         var options = {
             data: {
                 firstName: $form.find('#FirstName').val(),
@@ -64,13 +63,10 @@ fmn = {
             },
             success: function (resp) {
                 if (resp != null && resp.length > 0) {
-                    // success
-                    // clear local storage on successful submission
                     $('#response').addClass('success').html('<h3>Success!</h3>');
                     fmn.clearLocalStorage();
                     fmn.clearForm();
                 } else {
-                    fmn.log('Server returned no response');
                     $('#response').addClass('warning').html('<h3>Warning!</h3>');
                 }
             }
