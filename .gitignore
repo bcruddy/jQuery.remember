@@ -34,4 +34,6 @@ Temporary Items
 *.iml
 *.name
 
+/bower_components
+
 
