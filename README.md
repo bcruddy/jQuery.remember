@@ -10,3 +10,6 @@ Released under the MIT License.
 Forgetmenot assumes you'll be processing forms with AJAX so you'll need to uncomment this line and include an endpoint.
 
 While fmn.debug is set to true it will print every method name to the console as they fire. I recommend setting this to false in production.
+
+###Dependencies:
+jQuery and jQuery.cookie, bootstrap is just for the demo page styling and structure.
