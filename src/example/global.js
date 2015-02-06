@@ -18,11 +18,14 @@ debug = {
 
 bcr = {
     init: function () {
-        debug.log('bcr.init()');
 
         $('.demo-form').submit(function (e) {
             e.preventDefault();
-            bcr.submitForm($(this));
+            try {
+                bcr.submitForm($(this));
+            } catch (e) {
+                $('#response').html('<h4>An error occurred, please try again.</h4>');
+            }
         });
 
     },
@@ -41,12 +44,10 @@ bcr = {
                 if (resp != null && resp.length > 0) {
                     $('#response').addClass('success').html('<h3>Success!</h3>');
                     fmn.clearLocalStorage();
-                } else {
-                    this.error();
-                }
+                } else this.error();
             },
             error: function (resp) {
-                debug.log(resp);
+                if (resp != null) debug.log(resp);
                 throw new Error('There was an error processing your request');
             }
         };
