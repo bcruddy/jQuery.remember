@@ -1,15 +1,7 @@
 ##Forget Me Not Forms
 
-Users won't ever have to fill out a form twice again while maintaining full control of their data until THEY submit it.
+Pretty simple, the only dependency is has it jQuery which your website probably already uses unless you prefer to do everything the long way.
 
-FMNFs use HTML5 localStorage to store the values of forms until the form is submitted. On a successful submission, FMNFs automatically clears the users localStorage to prevent confusion in the future.
+Simply add the class `.remember` to any form you wish the users browser to remember for them.
 
-Released under the MIT License.
-
-##Usage:
-Forgetmenot assumes you'll be processing forms with AJAX so you'll need to uncomment this line and include an endpoint.
-
-While fmn.debug is set to true it will print every method name to the console as they fire. I recommend setting this to false in production.
-
-###Dependencies:
-Only needs jQuery. Bootstrap is just for the demo page styling and structure.
+[Licensed under the WTFPL](http://www.wtfpl.net/)

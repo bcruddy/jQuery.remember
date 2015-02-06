@@ -1,90 +1,63 @@
+/**
+ * Forget Me Not Forms
+ * Created: <brian at briancruddy dot com> 2/2015
+ * License: http://www.wtfpl.net/
+ */
+
+'use strict';
+var fmn;
 fmn = window.fmn || {};
-debug = window.debug || {};
-debug = {
-    active: true,
+fmn = {
+    debug: true,
 
     log: function (msg) {
-        if (this.active)
+        if (this.debug)
             console.log(msg);
-    }
-};
-fmn = {
+    },
+
     init: function () {
-        debug.log('fmn.init()');
 
         if (localStorage.length > 0)
-            fmn.getLocalStorage();
+            this.getLocalStorage();
 
-        $('.demo-form input, .demo-form textarea').blur(function () {
+        $('.remember input, .remember textarea, .remember select').blur(function () {
             var key = $(this).attr('id'),
                 val = $(this).val();
             fmn.setLocalStorage(key, val);
         });
 
-        $('.demo-form').submit(function (e) {
-            e.preventDefault();
-            fmn.submitForm($(this));
+        $('.remember #forget').click(function () {
+            fmn.clearLocalStorage();
         });
+
     },
 
     setLocalStorage: function (key, value) {
         debug.log('fmn.setLocalStorage()');
-        if (typeof(Storage) == 'undefined') return false;
-        localStorage.setItem(key, value);
+        if (typeof(Storage) == 'undefined' || localStorage.getItem(key) == value) return false;
+        if (value.length > 0)
+            localStorage.setItem(key, value);
+        else
+            localStorage.removeItem(key);
     },
 
     getLocalStorage: function () {
-        debug.log('fmn.getLocalStorage()');
-        for (var key in localStorage) {
-            $('.demo-form').find('#' + key).val(localStorage.getItem(key));
-        }
+        fmn.log('fmn.getLocalStorage()');
+        for (var key in localStorage)
+            $('.remember').find('#' + key).val(localStorage.getItem(key));
+        $('.remember #forget').show();
     },
 
     clearLocalStorage: function () {
-        debug.log('fmn.clearLocalStorage()');
-        for (var key in localStorage) {
+        fmn.log('fmn.clearLocalStorage()');
+        for (var key in localStorage)
             localStorage.removeItem(key);
-        }
+        this.clearForm();
     },
 
     clearForm: function () {
-        debug.log('fmn.clearForm()');
-        $('.demo-form input, .demo-form textarea').val('');
-    },
-
-    submitForm: function ($form) {
-        debug.log('fmn.submitForm()');
-        var options = {
-            data: {
-                firstName: $form.find('#FirstName').val(),
-                lastName: $form.find('#LastName').val(),
-                emailAddress: $form.find('#EmailAddress').val(),
-                message: $form.find('#Message').val()
-            },
-            success: function (resp) {
-                if (resp != null && resp.length > 0) {
-                    $('#response').addClass('success').html('<h3>Success!</h3>');
-                    fmn.clearLocalStorage();
-                    fmn.clearForm();
-                } else {
-                    $('#response').addClass('warning').html('<h3>Warning!</h3>');
-                }
-            }
-        };
-        debug.log(JSON.stringify(options.data));
-        //fmn.helpers.call(endpoint, options);
-    },
-
-    helpers: {
-        call: function (endpoint, options) {
-            $.ajax({
-                url: endpoint,
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(options.data),
-                success: options.success
-            });
-        }
+        fmn.log('fmn.clearForm()');
+        $('.remember input, .remember textarea').val('');
     }
 };
 fmn.init();

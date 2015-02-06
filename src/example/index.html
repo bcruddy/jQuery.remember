@@ -14,10 +14,10 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="col-md-7">
-            <form class="demo-form">
+        <div class="col-md-6 col-md-offset-3">
+            <form class="demo-form remember">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="FirstName" placeholder="First Name" />
+                    <input type="text" class="form-control" id="ContactName" placeholder="Name" />
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" id="LastName" placeholder="Last Name" />
@@ -30,15 +30,20 @@
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="button" class="btn btn-danger pull-right" id="forget">Clear Form</button>
                 </div>
             </form>
         </div>
-        <div class="col-md-5" id="response"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div id="response"></div>
+        </div>
     </div>
 </div>
 <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
 <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script type="text/javascript" src="/bower_components/jquery.cookie/jquery.cookie.js"></script>
-<script type="text/javascript" src="forgetmenot.js"></script>
+<script type="text/javascript" src="/src/forgetmenot.js"></script>
+<script type="text/javascript" src="/src/example/global.js"></script>
 </body>
 </html>
