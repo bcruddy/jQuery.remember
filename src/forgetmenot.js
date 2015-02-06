@@ -33,7 +33,7 @@ fmn = {
     },
 
     setLocalStorage: function (key, value) {
-        debug.log('fmn.setLocalStorage()');
+        fmn.log('fmn.setLocalStorage()');
         if (typeof(Storage) == 'undefined' || localStorage.getItem(key) == value) return false;
         if (value.length > 0)
             localStorage.setItem(key, value);
