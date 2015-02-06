@@ -4,7 +4,7 @@ debug = window.debug || {};
 bcr = window.bcr || {};
 
 debug = {
-    active: true,
+    active: false,
 
     log: function (msg) {
         if (this.active)
@@ -23,8 +23,9 @@ bcr = {
             e.preventDefault();
             try {
                 bcr.submitForm($(this));
-            } catch (e) {
-                $('#response').html('<h4>An error occurred, please try again.</h4>');
+            } catch (ex) {
+                debug.log(ex);
+                $('#response').html('<h4>' + ex.message + '</h4>');
             }
         });
 
@@ -42,13 +43,13 @@ bcr = {
             },
             success: function (resp) {
                 if (resp != null && resp.length > 0) {
-                    $('#response').addClass('success').html('<h3>Success!</h3>');
+                    $('#response').html('<h4>Success!</h4>');
                     fmn.clearLocalStorage();
-                } else this.error();
+                } else this.error(resp);
             },
             error: function (resp) {
                 if (resp != null) debug.log(resp);
-                throw new Error('There was an error processing your request');
+                throw new Error('An error occurred while processing your request, please try again later.');
             }
         };
         debug.json(options.data);
