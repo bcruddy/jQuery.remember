@@ -12,4 +12,4 @@ Forgetmenot assumes you'll be processing forms with AJAX so you'll need to uncom
 While fmn.debug is set to true it will print every method name to the console as they fire. I recommend setting this to false in production.
 
 ###Dependencies:
-jQuery and jQuery.cookie, bootstrap is just for the demo page styling and structure.
+Only needs jQuery. Bootstrap is just for the demo page styling and structure.

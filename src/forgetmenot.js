@@ -1,16 +1,18 @@
 fmn = window.fmn || {};
-fmn = {
-    debug: true,
+debug = window.debug || {};
+debug = {
+    active: true,
 
     log: function (msg) {
-        if (window.console && fmn.debug)
+        if (this.active)
             console.log(msg);
-    },
-
+    }
+};
+fmn = {
     init: function () {
-        fmn.log('fmn.init()');
+        debug.log('fmn.init()');
 
-        if ($.cookie('localData'))
+        if (localStorage.length > 0)
             fmn.getLocalStorage();
 
         $('.demo-form input, .demo-form textarea').blur(function () {
@@ -26,34 +28,32 @@ fmn = {
     },
 
     setLocalStorage: function (key, value) {
-        fmn.log('fmn.setLocalStorage()');
+        debug.log('fmn.setLocalStorage()');
         if (typeof(Storage) == 'undefined') return false;
         localStorage.setItem(key, value);
-        $.cookie('localData', true);
     },
 
     getLocalStorage: function () {
-        fmn.log('fmn.getLocalStorage()');
+        debug.log('fmn.getLocalStorage()');
         for (var key in localStorage) {
             $('.demo-form').find('#' + key).val(localStorage.getItem(key));
         }
     },
 
     clearLocalStorage: function () {
-        fmn.log('fmn.clearLocalStorage()');
+        debug.log('fmn.clearLocalStorage()');
         for (var key in localStorage) {
             localStorage.removeItem(key);
         }
-        $.cookie('localData', false);
     },
 
     clearForm: function () {
-        fmn.log('fmn.clearForm()');
+        debug.log('fmn.clearForm()');
         $('.demo-form input, .demo-form textarea').val('');
     },
 
     submitForm: function ($form) {
-        fmn.log('fmn.submitForm()');
+        debug.log('fmn.submitForm()');
         var options = {
             data: {
                 firstName: $form.find('#FirstName').val(),
@@ -71,7 +71,7 @@ fmn = {
                 }
             }
         };
-        fmn.log(JSON.stringify(options.data));
+        debug.log(JSON.stringify(options.data));
         //fmn.helpers.call(endpoint, options);
     },
 
