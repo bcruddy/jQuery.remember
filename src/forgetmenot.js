@@ -1,7 +1,7 @@
 /**
  * Forget Me Not Forms
  * Created: <brian at briancruddy dot com> 2/2015
- * License: http://www.wtfpl.net/
+ * Source: https://github.com/packofbadgers/ForgetMeNot
  */
 
 'use strict';
