@@ -59,5 +59,8 @@ fmn = {
         fmn.log('fmn.clearForm()');
         $('.remember input, .remember textarea').val('');
     }
+
 };
-fmn.init();
+
+if ($.find('.remember').length > 0)
+    fmn.init();
