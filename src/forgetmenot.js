@@ -62,5 +62,5 @@ fmn = {
 
 };
 
-if ($.find('.remember').length > 0)
-    fmn.init();
+// only initialize fmn if it's used on the page
+if ($.find('.remember').length > 0) fmn.init();
