@@ -5,62 +5,85 @@
  */
 
 'use strict';
-var fmn;
-fmn = window.fmn || {};
-fmn = {
-    debug: true,
 
-    log: function (msg) {
-        if (this.debug)
-            console.log(msg);
-    },
+(function ($) {
 
-    init: function () {
+    $.fn.remember = function (options) {
 
-        if (localStorage.length > 0)
-            this.getLocalStorage();
+        var opts = $.extend({}, $.fn.remember.defaults, options),
+            $self = $(this);
+        opts.identifier = $self.selector;
 
-        $('.remember input, .remember textarea, .remember select').blur(function () {
-            var key = $(this).attr('id'),
-                val = $(this).val();
-            fmn.setLocalStorage(key, val);
-        });
+        function log(msg) {
+            if (opts.debug)
+                console.log(msg);
+        }
 
-        $('.remember #forget').click(function () {
-            fmn.clearLocalStorage();
-        });
+        function init() {
+            checkLocalStorage();
 
-    },
+            $(opts.identifier + ' input').blur(function () {
+                var key = $(this).attr('id'),
+                    val = $(this).val();
+                setLocalStorage(key, val);
+            });
 
-    setLocalStorage: function (key, value) {
-        fmn.log('fmn.setLocalStorage()');
-        if (typeof(Storage) == 'undefined' || localStorage.getItem(key) == value) return false;
-        if (value.length > 0)
-            localStorage.setItem(key, value);
-        else
-            localStorage.removeItem(key);
-    },
+            $(opts.identifier + ' textarea').blur(function () {
+                var key = $(this).attr('id'),
+                    val = $(this).val();
+                setLocalStorage(key, val);
+            });
 
-    getLocalStorage: function () {
-        fmn.log('fmn.getLocalStorage()');
-        for (var key in localStorage)
-            $('.remember').find('#' + key).val(localStorage.getItem(key));
-        $('.remember #forget').show();
-    },
+            $(opts.identifier + ' #forget').click(function () {
+                clearLocalStorage();
+            });
 
-    clearLocalStorage: function () {
-        fmn.log('fmn.clearLocalStorage()');
-        for (var key in localStorage)
-            localStorage.removeItem(key);
-        this.clearForm();
-    },
+            if (opts.clear)
+                clearLocalStorage();
 
-    clearForm: function () {
-        fmn.log('fmn.clearForm()');
-        $('.remember input, .remember textarea').val('');
-    }
+        }
 
-};
+        function checkLocalStorage() {
+            log('checkLocalStorage()');
+            if (localStorage.length > 0)
+                getLocalStorage();
+        }
 
-// only initialize fmn if it's used on the page
-if ($.find('.remember').length > 0) fmn.init();
+        function setLocalStorage(key, value) {
+            log('setLocalStorage');
+            if (typeof(Storage) == 'undefined' || localStorage.getItem(key) == value) return false;
+            if (value.length > 0)
+                localStorage.setItem(key, value);
+            else
+                localStorage.removeItem(key);
+        }
+
+        function getLocalStorage() {
+            log('getLocalStorage()');
+            for (var key in localStorage)
+                $(opts.identifier).find('#' + key).val(localStorage.getItem(key));
+            $(opts.identifier + ' #forget').show();
+        }
+
+        function clearLocalStorage() {
+            log('clearLocalStorage()');
+            for (var key in localStorage)
+                localStorage.removeItem(key);
+            clearForm()
+        }
+
+        function clearForm() {
+            log('clearForm()');
+            $(opts.identifier + ' input').val('');
+            $(opts.identifier + ' textarea').val('');
+        }
+
+        init();
+    };
+
+    $.fn.remember.defaults = {
+        debug: false,
+        clear: false
+    };
+
+})(jQuery);

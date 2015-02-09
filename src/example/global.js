@@ -44,7 +44,7 @@ bcr = {
             success: function (resp) {
                 if (resp != null && resp.length > 0) {
                     $('#response').html('<h4>Success!</h4>');
-                    fmn.clearLocalStorage();
+                    $('.demo-form').remember({ clear: true });
                 } else this.error(resp);
             },
             error: function (resp) {

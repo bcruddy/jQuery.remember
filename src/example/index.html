@@ -15,9 +15,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form class="demo-form remember">
+            <form class="demo-form">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="FirstName" placeholder="FirstName" />
+                    <input type="text" class="form-control" id="FirstName" placeholder="First Name" />
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" id="LastName" placeholder="Last Name" />
@@ -50,5 +50,6 @@
 <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script type="text/javascript" src="/src/forgetmenot.js"></script>
 <script type="text/javascript" src="/src/example/global.js"></script>
+<script>$('.demo-form').remember({ debug: true });</script>
 </body>
 </html>
