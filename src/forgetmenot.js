@@ -11,43 +11,42 @@
     $.fn.remember = function (options) {
 
         var opts = $.extend({}, $.fn.remember.defaults, options),
-            $self = $(this);
-        opts.identifier = $self.selector;
+            self = this
+        opts.identifier = self.selector;
 
-        $self._init = function () {
+        self._init = function () {
             this._checkLocalStorage();
 
             $(opts.identifier + ' input').blur(function () {
                 var key = $(this).attr('id'),
                     val = $(this).val();
-                $self._setLocalStorage(key, val);
+                self._setLocalStorage(key, val);
             });
 
             $(opts.identifier + ' textarea').blur(function () {
                 var key = $(this).attr('id'),
                     val = $(this).val();
-                $self._setLocalStorage(key, val);
-            });
-
-            $(opts.identifier + ' #forget').click(function () {
-                $self._clearLocalStorage();
+                self._setLocalStorage(key, val);
             });
 
             if (opts.clear)
-                $self._clearLocalStorage();
+                self._clearForm();
+
+            if (opts.forget)
+                self._clearLocalStorage();
         };
 
-        $self._log = function (msg) {
+        self._log = function (msg) {
             if (opts.debug)
                 console.log(msg);
         };
 
-        $self._checkLocalStorage = function () {
+        self._checkLocalStorage = function () {
             if (localStorage.length > 0)
-                $self._getLocalStorage();
+                self._getLocalStorage();
         };
 
-        $self._setLocalStorage = function (key, value) {
+        self._setLocalStorage = function (key, value) {
             if (typeof(Storage) == 'undefined' || localStorage.getItem(key) == value) return false;
             if (value.length > 0)
                 localStorage.setItem(key, value);
@@ -55,29 +54,30 @@
                 localStorage.removeItem(key);
         };
 
-        $self._getLocalStorage = function () {
+        self._getLocalStorage = function () {
             for (var key in localStorage)
                 $(opts.identifier).find('#' + key).val(localStorage.getItem(key));
             $(opts.identifier + ' #forget').show();
         };
 
-        $self._clearLocalStorage = function () {
+        self._clearLocalStorage = function () {
             for (var key in localStorage)
                 localStorage.removeItem(key);
-            $self._clearForm()
+            self._clearForm()
         };
 
-        $self._clearForm = function() {
+        self._clearForm = function() {
             $(opts.identifier + ' input').val('');
             $(opts.identifier + ' textarea').val('');
         };
 
-        $self._init();
+        self._init();
     };
 
     $.fn.remember.defaults = {
         debug: false,
-        clear: false
+        clear: false,
+        forget: false
     };
 
 })(jQuery);
