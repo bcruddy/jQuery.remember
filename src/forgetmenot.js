@@ -6,15 +6,16 @@
 
 'use strict';
 
-(function ($) {
+;(function ($) {
 
     $.fn.remember = function (options) {
 
         var opts = $.extend({}, $.fn.remember.defaults, options),
-            self = this
-        opts.identifier = self.selector;
+            self = this;
+        opts.identifier = this.selector;
 
-        self._init = function () {
+        this._init = function () {
+            this._log(this);
             this._checkLocalStorage();
 
             $(opts.identifier + ' input').blur(function () {
@@ -36,17 +37,17 @@
                 self._clearLocalStorage();
         };
 
-        self._log = function (msg) {
+        this._log = function (msg) {
             if (opts.debug)
                 console.log(msg);
         };
 
-        self._checkLocalStorage = function () {
+        this._checkLocalStorage = function () {
             if (localStorage.length > 0)
                 self._getLocalStorage();
         };
 
-        self._setLocalStorage = function (key, value) {
+        this._setLocalStorage = function (key, value) {
             if (typeof(Storage) == 'undefined' || localStorage.getItem(key) == value) return false;
             if (value.length > 0)
                 localStorage.setItem(key, value);
@@ -54,24 +55,24 @@
                 localStorage.removeItem(key);
         };
 
-        self._getLocalStorage = function () {
+        this._getLocalStorage = function () {
             for (var key in localStorage)
                 $(opts.identifier).find('#' + key).val(localStorage.getItem(key));
             $(opts.identifier + ' #forget').show();
         };
 
-        self._clearLocalStorage = function () {
+        this._clearLocalStorage = function () {
             for (var key in localStorage)
                 localStorage.removeItem(key);
             self._clearForm()
         };
 
-        self._clearForm = function() {
+        this._clearForm = function() {
             $(opts.identifier + ' input').val('');
             $(opts.identifier + ' textarea').val('');
         };
 
-        self._init();
+        this._init();
     };
 
     $.fn.remember.defaults = {
