@@ -4,9 +4,9 @@
  * Source: https://github.com/packofbadgers/ForgetMeNot
  */
 
-'use strict';
-
 ;(function ($) {
+    
+    'use strict';
 
     $.fn.remember = function (options) {
 
