@@ -1,7 +1,7 @@
 /**
  * Forget Me Not Forms
  * Created: <brian at briancruddy dot com> 2/2015
- * Source: https://github.com/packofbadgers/ForgetMeNot
+ * Source: https://github.com/packofbadgers/jQuery.remember
  */
 
 ;(function ($) {
